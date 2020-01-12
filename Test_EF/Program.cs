@@ -1,7 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+
+//  ** Defintions of database :
+
+//CREATE TABLE `Blogs` (
+//	`BlogId` INT(11) NOT NULL AUTO_INCREMENT,
+//	`Url` TEXT NOT NULL DEFAULT '',
+//	PRIMARY KEY(`BlogId`)
+//)
+//COLLATE='utf8mb4_general_ci'
+//ENGINE=InnoDB
+//AUTO_INCREMENT = 4
+//;
+
+//CREATE TABLE `Posts` (
+//	`PostId` INT(11) NOT NULL AUTO_INCREMENT,
+//	`BlogId` INT(11) NOT NULL DEFAULT 0,
+//	`Title` VARCHAR(50) NOT NULL DEFAULT '',
+//	`Content` VARCHAR(50) NOT NULL DEFAULT '',
+//	PRIMARY KEY(`PostId`),
+//	INDEX `FK_Blog` (`BlogId`),
+//	CONSTRAINT `FK_Blog` FOREIGN KEY(`BlogId`) REFERENCES `Blogs` (`BlogId`)
+//)
+//COLLATE='utf8mb4_general_ci'
+//ENGINE=InnoDB
+//AUTO_INCREMENT = 3
+//;
+
+
 
 namespace Test_EF
 {
@@ -35,6 +64,8 @@ namespace Test_EF
                     });
                 db.SaveChanges();
 
+                Console.ReadKey();
+
                 // Delete
                 Console.WriteLine("Delete the blog");
                 db.Remove(blog);
@@ -45,6 +76,7 @@ namespace Test_EF
 
     public class Blog
     {
+        [Key]
         public int BlogId { get; set; }
         public string Url { get; set; }
 
@@ -53,6 +85,7 @@ namespace Test_EF
 
     public class Post
     {
+        [Key]
         public int PostId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
@@ -68,7 +101,7 @@ namespace Test_EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseMySql("Server=rasp4;User Id=root;Password=password;Database=mariadbtest");
+            options.UseMySql("Server=rasp4;User Id=EF;Password=Navion151;Database=test_EF");
         }
     }
 
